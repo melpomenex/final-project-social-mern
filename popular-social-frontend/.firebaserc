@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "popular-social-mern"
-  }
+    "default": "popular-social-mern-f53c9",
+    "development": "popular-social-mern-f53c9"
+  },
+  "targets": {},
+  "etags": {}
 }
