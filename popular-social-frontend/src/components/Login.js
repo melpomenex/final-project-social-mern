@@ -1,24 +1,37 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Button } from '@material-ui/core'
-import { auth, provider } from '../firebase'
-import { useStateValue } from '../StateProvider'
-import { actionTypes } from '../Reducer'
+import React from 'react';
+import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import { auth, provider } from '../firebase';
+import { useStateValue } from '../StateProvider';
+import { actionTypes } from '../Reducer';
+import IpGeolocationApi from 'ip-geolocation-api-javascript-sdk/IpGeolocationApi.js';
 
 const Login = () => {
-    const [{}, dispatch] = useStateValue()
+    const [{}, dispatch] = useStateValue();
 
-    const signIn = () => {
-        auth.signInWithPopup(provider)
-            .then(result => {
-                console.log(result)
-                dispatch({
-                    type: actionTypes.SET_USER,
-                    user: result.user
-                })
-            })
-            .catch(error => alert(error.message))
-    }
+    const ipgeolocationApi = new IpGeolocationApi("7db0b2e2e49548fb82f49a4624a510dd"); // Replace YOUR_API_KEY_HERE with your actual API key
+
+    const signIn = async () => {
+        try {
+            const geolocationParams = new GeolocationParams();
+            geolocationParams.setFields("country_code"); 
+            const response = await ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
+
+            if (response.country_code !== "US") { 
+                alert("Login from your location is not allowed.");
+                return;
+            }
+
+            const result = await auth.signInWithPopup(provider);
+            console.log(result);
+            dispatch({
+                type: actionTypes.SET_USER,
+                user: result.user
+            });
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     return (
         <LoginWrapper>
@@ -28,32 +41,13 @@ const Login = () => {
             </div>
             <Button type='submit' className="login__btn" onClick={signIn}>Sign In</Button>
         </LoginWrapper>
-    )
-}
+    );
+};
 
 const LoginWrapper = styled.div`
     display: grid;
     place-items: center;
     height: 100vh;
-    .login__logo {
-        display: flex;
-        flex-direction: column;
-        img {
-            object-fit: contain;
-            height: 150px;
-            max-width: 200px;
-        }
-    }
-    .login__btn {
-        width: 300px;
-        background-color: #2e81f4;
-        color: #eff2f5;
-        font-weight: 800;
-        &:hover {
-            background-color: white;
-            color: #2e81f4;
-        }
-    }
-`
+`;
 
-export default Login
+export default Login;

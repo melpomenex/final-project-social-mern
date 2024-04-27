@@ -1,13 +1,13 @@
 import firebase from 'firebase'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD7QOaSXUO23-Zdn8IW4Wx_QZBZC1R1bc4",
-  authDomain: "social-media-app-mern-b9eee.firebaseapp.com",
-  projectId: "social-media-app-mern-b9eee",
-  storageBucket: "social-media-app-mern-b9eee.appspot.com",
-  messagingSenderId: "98065498714",
-  appId: "1:98065498714:web:5d84caef40e6c2fb108e63",
-  measurementId: "G-NKBYSDZHWM"
+  apiKey: "AIzaSyAWNs5JMcLx57_VdpQYQOjNGaYZQYN-KXE",
+  authDomain: "popular-social-mern-f53c9.firebaseapp.com",
+  projectId: "popular-social-mern-f53c9",
+  storageBucket: "popular-social-mern-f53c9.appspot.com",
+  messagingSenderId: "103606630356",
+  appId: "1:103606630356:web:c5e5c21f03617c4b870841",
+  measurementId: "G-R2D9N7HT1Z"
 };
 
 
